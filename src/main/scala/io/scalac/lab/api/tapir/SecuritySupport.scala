@@ -19,7 +19,7 @@ trait SecuritySupport[F[_]] extends CustomStatusMappings {
   val secured: PartialServerEndpoint[ApiKey, Unit, ApiError, Unit, Nothing, F] = securedWithStatuses()
 
   /** Definition of the partial server endpoint which adds authentication to the endpoint and custom status codes */
-  def securedWithStatuses(statuses: StatusMapping[_ <: ApiError]*): PartialServerEndpoint[ApiKey, Unit, ApiError, Unit, Nothing, F] =
+  def securedWithStatuses(statuses: StatusMapping[_ <: ApiError]*): PartialServerEndpoint[ApiKey, Unit, ApiError, Unit, Any, F] =
     endpoint
       .in(auth.apiKey(header[Option[String]]("api-key")))
       .errorOut(oneOf[ApiError](Unauthorized, statuses: _*))

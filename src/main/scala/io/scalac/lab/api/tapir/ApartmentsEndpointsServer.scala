@@ -12,7 +12,7 @@ import scala.concurrent.Future
 /**
   * This class shows that Tapir does not require any additional implementation
   * other than what we have in definition and we can add our logic directly
- **/
+  * */
 class ApartmentsEndpointsServer(storage: ApartmentsStorage, security: SecurityService) extends ApartmentsEndpointsDefinition[Future] {
 
   val listApartmentsRoute: Route = listApartments.serverLogic { case (_, paging) => storage.list(paging.from, paging.limit) }.toRoute

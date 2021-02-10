@@ -4,7 +4,7 @@ object Dependencies {
 
   object Versions {
     val endpoints = "1.1.0"
-    val tapir = "0.16.14"
+    val tapir = "0.17.9"
     val circe = "0.13.0"
     val scalaTest = "3.2.0"
     val akka = "2.6.8"

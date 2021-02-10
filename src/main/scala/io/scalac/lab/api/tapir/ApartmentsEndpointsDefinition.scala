@@ -20,7 +20,7 @@ import sttp.tapir.server.PartialServerEndpoint
   */
 trait ApartmentsEndpointsDefinition[F[_]] extends SecuritySupport[F] with CustomStatusMappings {
 
-  val listApartments: PartialServerEndpoint[ApiKey, Paging, ApiError, List[Apartment], Nothing, F] =
+  val listApartments: PartialServerEndpoint[ApiKey, Paging, ApiError, List[Apartment], Any, F] =
     securedWithStatuses(BadRequest).get
       .in("v1" / "data" / "apartments")
       .in(pagingIn)
@@ -36,7 +36,7 @@ trait ApartmentsEndpointsDefinition[F[_]] extends SecuritySupport[F] with Custom
       )
       .description("An endpoint responsible for listing all available apartments")
 
-  val getApartment: PartialServerEndpoint[ApiKey, Int, ApiError, Apartment, Nothing, F] =
+  val getApartment: PartialServerEndpoint[ApiKey, Int, ApiError, Apartment, Any, F] =
     securedWithStatuses(NotFound).get
       .in("v1" / "data" / "apartments")
       .in(
@@ -50,7 +50,7 @@ trait ApartmentsEndpointsDefinition[F[_]] extends SecuritySupport[F] with Custom
       )
       .description("An endpoint responsible for getting specific apartment by id")
 
-  val findApartment: PartialServerEndpoint[ApiKey, Address, ApiError, Apartment, Nothing, F] =
+  val findApartment: PartialServerEndpoint[ApiKey, Address, ApiError, Apartment, Any, F] =
     securedWithStatuses(NotFound, BadRequest).get
       .in("v1" / "data" / "apartments" / "search")
       .in(addressIn)
@@ -61,7 +61,7 @@ trait ApartmentsEndpointsDefinition[F[_]] extends SecuritySupport[F] with Custom
       )
       .description("An endpoint responsible for finding specific apartment by search predicates")
 
-  val addApartment: PartialServerEndpoint[ApiKey, Apartment, ApiError, Apartment, Nothing, F] =
+  val addApartment: PartialServerEndpoint[ApiKey, Apartment, ApiError, Apartment, Any, F] =
     securedWithStatuses(BadRequest).post
       .in("v1" / "data" / "apartments")
       .in(
@@ -76,7 +76,7 @@ trait ApartmentsEndpointsDefinition[F[_]] extends SecuritySupport[F] with Custom
       )
       .description("An endpoint responsible for adding new apartment")
 
-  val deleteApartment: PartialServerEndpoint[ApiKey, Int, ApiError, Apartment, Nothing, F] =
+  val deleteApartment: PartialServerEndpoint[ApiKey, Int, ApiError, Apartment, Any, F] =
     securedWithStatuses(NotFound).delete
       .in("v1" / "data" / "apartments")
       .in(

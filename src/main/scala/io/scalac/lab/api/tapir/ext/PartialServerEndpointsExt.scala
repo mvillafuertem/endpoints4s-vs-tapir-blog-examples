@@ -1,6 +1,6 @@
 package io.scalac.lab.api.tapir.ext
 
-import sttp.tapir.docs.openapi.{EndpointToOpenAPIDocs, OpenAPIDocsOptions}
+import sttp.tapir.docs.openapi.{OpenAPIDocsInterpreter, OpenAPIDocsOptions}
 import sttp.tapir.openapi.{Info, OpenAPI}
 import sttp.tapir.server.PartialServerEndpoint
 
@@ -14,7 +14,7 @@ trait PartialServerEndpointsExt {
     def toOpenAPI(title: String, version: String)(implicit options: OpenAPIDocsOptions): OpenAPI = toOpenAPI(Info(title, version))
 
     def toOpenAPI(info: Info)(implicit options: OpenAPIDocsOptions): OpenAPI =
-      EndpointToOpenAPIDocs.toOpenAPI(info, serverEndpoints.map(_.endpoint), options)
+      OpenAPIDocsInterpreter.toOpenAPI(serverEndpoints.map(_.endpoint), info)(options)
   }
 
 }

@@ -1,6 +1,7 @@
 package io.scalac.lab.api.tapir
 
 import cats.syntax.functor._
+import io.circe.generic.AutoDerivation
 import io.circe.generic.auto._
 import io.circe.syntax._
 import io.circe.{Decoder, Encoder}
@@ -9,6 +10,7 @@ import io.scalac.lab.api.model.ApiError._
 import sttp.model.{StatusCode => Code}
 import sttp.tapir.EndpointOutput.StatusMapping
 import sttp.tapir._
+import sttp.tapir.generic.SchemaDerivation
 import sttp.tapir.json.circe._
 
 /**
@@ -19,7 +21,7 @@ import sttp.tapir.json.circe._
   * - 401 `Unauthorized` with `UnauthorizedError` as json entity
   * - 404 `NotFound` with `NotFoundError` as json entity
   * */
-trait CustomStatusMappings {
+trait CustomStatusMappings extends AutoDerivation with SchemaDerivation {
 
   private implicit val encodeApiError: Encoder[ApiError] = Encoder.instance {
     case x @ UnauthorizedError(_) => x.asJson
